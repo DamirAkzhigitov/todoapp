@@ -1,11 +1,10 @@
 <template lang="pug">
   .home
     .card-container
-        .card-group(v-for="i in 3" :key="i")
+        .card-group(v-for="i in 5" :key="i")
             GroupHeader(:name="i")
             .card-group_body
-                CardItem(v-for="(d,index) in 5" :key="d" :name="index")
-            .card-group_footer Footer
+                CardItem(v-for="(d,index) in 25" :key="d" :name="index")
 </template>
 
 <script>
@@ -24,20 +23,20 @@ export default {
 .card-container {
     display: flex;
     flex-flow: row;
+    overflow-x: scroll;
 }
 .card-group {
-    width: 355px;
+    display: block;
+    min-width: 355px;
     min-height: 700px;
     margin: 20px;
     background-color: #c4c4c4;
-    &_item {
-        padding: 5px;
-        &:first-child {
-            margin-top: 5px;
-        }
-        &:last-child {
-            border-bottom: 1px solid;
-        }
+    &_body {
+        display: flex;
+        flex-flow: column;
+        overflow: auto;
+        height: 680px;
+        align-items: center;
     }
     &_footer {
         padding: 5px;
