@@ -2,7 +2,7 @@
   .home
     .card-container
         .card-group(v-for="i in 3" :key="i")
-            CardHeader(:name="i")
+            GroupHeader(:name="i")
             .card-group_body
                 CardItem(v-for="(d,index) in 5" :key="d" :name="index")
             .card-group_footer Footer
@@ -11,11 +11,11 @@
 <script>
 // @ is an alias to /src
 import CardItem from '@/components/CardItem'
-import CardHeader from '../components/CardHeader'
+import GroupHeader from '../components/GroupHeader'
 export default {
     name: 'Home',
     components: {
-        CardHeader,
+        GroupHeader,
         CardItem
     }
 }
@@ -26,13 +26,10 @@ export default {
     flex-flow: row;
 }
 .card-group {
+    width: 355px;
+    min-height: 700px;
     margin: 20px;
-    border: 2px solid #000;
-    &_header {
-        background-color: #2c3e50;
-        color: #fff;
-        padding: 5px;
-    }
+    background-color: #c4c4c4;
     &_item {
         padding: 5px;
         &:first-child {
