@@ -2,19 +2,31 @@
     .card-group_header
         .card-group_add
             .card-group_add__icon
-        .card-group_name card group {{ name }}
-        .card_group_remove
+        .card-group_name {{ name }} {{ id }}
+        .card_group_remove(@click="removeTodoGroup")
             .card_group_remove__icon
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
     name: 'GroupHeader',
     props: {
         name: {
+            type: String,
+            required: true
+        },
+        id: {
             type: Number,
             required: true
         }
+    },
+    methods: {
+        removeTodoGroup() {
+            console.log('remove todo group = ', this.id)
+            this.remove(this.id)
+        },
+        ...mapMutations({ remove: 'REMOVE_GROUP' })
     }
 }
 </script>

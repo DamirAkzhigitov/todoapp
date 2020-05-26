@@ -1,14 +1,22 @@
 <template lang="pug">
   .home
     .card-container
-        .card-group(v-for="i in 5" :key="i")
-            GroupHeader(:name="i")
+        .card-container_header
+            button(@click="ADD_TODOGROUP") Add todo group
+        .card-group(v-for="(group, key) in todoGroupList" :key="group.id")
+            GroupHeader(:name="group.name" :id="key")
             .card-group_body
-                CardItem(v-for="(d,index) in 25" :key="d" :name="index")
+                CardItem(name="index" v-for="(card, index) in group.results"
+                    :key="card.id"
+                    :name="card.name"
+                    :status="card.status"
+                    :body="card.body"
+                    :id="index")
 </template>
 
 <script>
 // @ is an alias to /src
+import { mapState, mapMutations } from 'vuex'
 import CardItem from '@/components/CardItem'
 import GroupHeader from '../components/GroupHeader'
 export default {
@@ -16,6 +24,12 @@ export default {
     components: {
         GroupHeader,
         CardItem
+    },
+    computed: {
+        ...mapState(['todoGroupList', 'testList'])
+    },
+    methods: {
+        ...mapMutations(['ADD_TODOGROUP'])
     }
 }
 </script>
@@ -24,6 +38,8 @@ export default {
     display: flex;
     flex-flow: row;
     overflow-x: scroll;
+    &_header {
+    }
 }
 .card-group {
     display: block;
