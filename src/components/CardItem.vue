@@ -6,11 +6,12 @@
             .card-group-item_name {{ name }}
             .card-group-item_remove(@click="removeCard")
                 .card-group-item_icon
-        .card-group-item_body {{ body }} {{ id }}
+        .card-group-item_body {{ body }} {{ idCard }} {{ idGroup }}
         .card-group-item_footer
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
     name: 'Card',
     props: {
@@ -26,22 +27,32 @@ export default {
             type: String,
             required: true
         },
-        id: {
+        idCard: {
+            type: Number,
+            required: true
+        },
+        idGroup: {
             type: Number,
             required: true
         }
     },
     methods: {
         removeCard() {
-            console.log('remove this card id = ', this.id)
-        }
+            const card = {
+                parentId: this.idGroup,
+                id: this.idCard
+            }
+            console.log('remove this card id = ', card)
+            this.removeTodoCard(card)
+        },
+        ...mapActions(['removeTodoCard'])
     }
 }
 </script>
 
 <style scoped lang="scss">
 .card-group-item {
-    margin: 20px;
+    margin: 10px 20px;
 
     width: 305px;
     min-height: 240px;
@@ -64,6 +75,9 @@ export default {
         &__done {
             background: rgba(52, 147, 104, 0.99);
         }
+    }
+    &_body {
+        padding: 10px;
     }
     &_name {
         font-style: italic;

@@ -2,7 +2,7 @@
   .home
     .card-container
         .card-container_header
-            button(@click="ADD_TODOGROUP") Add todo group
+            button(@click="addTodoGroup") Add todo group
         .card-group(v-for="(group, key) in todoGroupList" :key="group.id")
             GroupHeader(:name="group.name" :id="key")
             .card-group_body
@@ -11,12 +11,13 @@
                     :name="card.name"
                     :status="card.status"
                     :body="card.body"
-                    :id="index")
+                    :idCard="index"
+                    :idGroup="key")
 </template>
 
 <script>
 // @ is an alias to /src
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import CardItem from '@/components/CardItem'
 import GroupHeader from '../components/GroupHeader'
 export default {
@@ -29,7 +30,10 @@ export default {
         ...mapState(['todoGroupList', 'testList'])
     },
     methods: {
-        ...mapMutations(['ADD_TODOGROUP'])
+        ...mapActions(['addTodoGroup', 'getTodoState'])
+    },
+    created() {
+        this.getTodoState()
     }
 }
 </script>

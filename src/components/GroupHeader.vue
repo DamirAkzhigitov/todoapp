@@ -1,14 +1,14 @@
 <template lang="pug">
     .card-group_header
-        .card-group_add(@click="addCard")
+        .card-group_add(@click="addTodoCard(id)")
             .card-group_add__icon
         .card-group_name {{ name }} {{ id }}
-        .card_group_remove(@click="removeTodoGroup")
+        .card_group_remove(@click="removeTodoGroup(id)")
             .card_group_remove__icon
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     name: 'GroupHeader',
     props: {
@@ -22,15 +22,7 @@ export default {
         }
     },
     methods: {
-        addCard() {
-            console.log('add new card in group')
-            this.add(this.id)
-        },
-        removeTodoGroup() {
-            console.log('remove todo group = ', this.id)
-            this.remove(this.id)
-        },
-        ...mapMutations({ remove: 'REMOVE_GROUP', add: 'ADD_NEWCARD' })
+        ...mapActions(['addTodoCard', 'removeTodoGroup'])
     }
 }
 </script>
