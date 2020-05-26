@@ -1,7 +1,7 @@
 <template lang="pug">
     .card-group-item
         .card-group-item_header(:class="{ 'card-group-item_header__done' : status }")
-            .card-group-item_check
+            .card-group-item_check(@click="checkbox")
                 .card-group-item_icon(:class="{ 'card-group-item_icon__done' : status}")
             .card-group-item_name(v-if="!editMode" @click="editMode = !editMode") {{ name }}
             input.card-group-item_name(v-else v-model="card.name" @blur="toggleEdit")
@@ -49,8 +49,12 @@ export default {
         }
     },
     methods: {
-        toggleEdit() {
-            this.editMode = !this.editMode
+        checkbox() {
+            this.card.status = !this.card.status
+            this.toggleEdit(false)
+        },
+        toggleEdit(changeEditMode = true) {
+            if (changeEditMode) this.editMode = !this.editMode
             const card = {
                 parentId: this.idGroup,
                 id: this.idCard,
@@ -138,6 +142,9 @@ export default {
         }
     }
     &_check {
+        input {
+            display: none;
+        }
         &:before {
             content: '';
             position: absolute;
