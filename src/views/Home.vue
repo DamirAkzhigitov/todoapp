@@ -42,6 +42,7 @@ export default {
     display: flex;
     flex-flow: row;
     overflow-x: scroll;
+    min-height: 800px;
     &_header {
     }
 }

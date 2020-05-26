@@ -23,11 +23,11 @@ export default new Vuex.Store({
         removeTodoGroup({ commit }, id) {
             const newList = filterList(id)
             localStorage.setItem('todoGroupList', JSON.stringify(newList))
+
             commit('SET_TODOGROUP', newList)
         },
         addTodoCard({ commit }, data) {
             const newList = checkLocalStorage()
-            console.log('newList = ', newList)
             const card = {
                 name: 'Введите название',
                 status: false,
@@ -35,6 +35,7 @@ export default new Vuex.Store({
             }
             newList[data].results.push(card)
             localStorage.setItem('todoGroupList', JSON.stringify(newList))
+
             commit('SET_TODOGROUP', newList)
         },
         addTodoGroup({ commit }) {
@@ -45,7 +46,14 @@ export default new Vuex.Store({
             }
             newList.push(newGroup)
             localStorage.setItem('todoGroupList', JSON.stringify(newList))
+
             commit('ADD_TODOGROUP', newGroup)
+        },
+        updateTodoCard({ commit }, data) {
+            const newList = checkLocalStorage()
+            newList[data.parentId].results[data.id] = data.result
+            localStorage.setItem('todoGroupList', JSON.stringify(newList))
+            commit('SET_TODOGROUP', newList)
         },
         removeTodoCard({ commit }, data) {
             const newList = checkLocalStorage()
@@ -53,6 +61,7 @@ export default new Vuex.Store({
                 data.parentId
             ].results.filter((item, index) => index !== data.id)
             localStorage.setItem('todoGroupList', JSON.stringify(newList))
+
             commit('SET_TODOGROUP', newList)
         }
     },

@@ -3,10 +3,12 @@
         .card-group-item_header(:class="{ 'card-group-item_header__done' : status }")
             .card-group-item_check
                 .card-group-item_icon(:class="{ 'card-group-item_icon__done' : status}")
-            .card-group-item_name {{ name }}
+            .card-group-item_name(v-if="!editMode" @click="editMode = !editMode") {{ name }}
+            input.card-group-item_name(v-else v-model="card.name" @blur="toggleEdit")
             .card-group-item_remove(@click="removeCard")
                 .card-group-item_icon
-        .card-group-item_body {{ body }} {{ idCard }} {{ idGroup }}
+        .card-group-item_body(v-if="!editMode" @click="editMode = !editMode") {{ body }}
+        input.card-group-item_body(v-else v-model="card.body" @blur="toggleEdit")
         .card-group-item_footer
 </template>
 
@@ -36,16 +38,34 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            editMode: false,
+            card: {
+                name: this.name,
+                status: this.status,
+                body: this.body
+            }
+        }
+    },
     methods: {
+        toggleEdit() {
+            this.editMode = !this.editMode
+            const card = {
+                parentId: this.idGroup,
+                id: this.idCard,
+                result: this.card
+            }
+            this.updateTodoCard(card)
+        },
         removeCard() {
             const card = {
                 parentId: this.idGroup,
                 id: this.idCard
             }
-            console.log('remove this card id = ', card)
             this.removeTodoCard(card)
         },
-        ...mapActions(['removeTodoCard'])
+        ...mapActions(['removeTodoCard', 'updateTodoCard'])
     }
 }
 </script>
@@ -72,6 +92,10 @@ export default {
         color: #fff;
         display: flex;
         justify-content: space-between;
+        input {
+            background: none;
+            border: none;
+        }
         &__done {
             background: rgba(52, 147, 104, 0.99);
         }
