@@ -22,6 +22,13 @@ export default new Vuex.Store({
         SET_TODO(state, group) {
             state.todoGroupList = group
         },
+        ADD_NEWCARD(state, idGroup) {
+            state.todoGroupList[idGroup].results.push({
+                name: 'Введите название',
+                status: false,
+                body: 'Тут пусто'
+            })
+        },
         ADD_TODOGROUP(state) {
             const newGroup = {
                 name: 'Введите ',

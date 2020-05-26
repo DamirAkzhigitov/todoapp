@@ -4,7 +4,7 @@
             .card-group-item_check
                 .card-group-item_icon(:class="{ 'card-group-item_icon__done' : status}")
             .card-group-item_name {{ name }}
-            .card-group-item_remove
+            .card-group-item_remove(@click="removeCard")
                 .card-group-item_icon
         .card-group-item_body {{ body }} {{ id }}
         .card-group-item_footer
@@ -29,6 +29,11 @@ export default {
         id: {
             type: Number,
             required: true
+        }
+    },
+    methods: {
+        removeCard() {
+            console.log('remove this card id = ', this.id)
         }
     }
 }
