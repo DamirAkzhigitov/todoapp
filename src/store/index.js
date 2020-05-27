@@ -49,6 +49,12 @@ export default new Vuex.Store({
 
             commit('ADD_TODOGROUP', newGroup)
         },
+        updateGroup({ commit }, data) {
+            const newList = checkLocalStorage()
+            newList[data.id].name = data.name
+            localStorage.setItem('todoGroupList', JSON.stringify(newList))
+            commit('SET_TODOGROUP', newList)
+        },
         updateTodoCard({ commit }, data) {
             const newList = checkLocalStorage()
             newList[data.parentId].results[data.id] = data.result

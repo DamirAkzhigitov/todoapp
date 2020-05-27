@@ -1,8 +1,6 @@
 <template lang="pug">
   .home
     .card-container
-        .card-container_header
-            button(@click="addTodoGroup") Add todo group
         .card-group(v-for="(group, key) in todoGroupList" :key="group.id")
             GroupHeader(:name="group.name" :id="key")
             .card-group_body

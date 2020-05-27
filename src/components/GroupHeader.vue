@@ -2,7 +2,8 @@
     .card-group_header
         .card-group_add(@click="addTodoCard(id)")
             .card-group_add__icon
-        .card-group_name {{ name }} {{ id }}
+        .card-group_name(v-if="!editMode" @click="editMode = !editMode")  {{ groupName }}
+        input.card-group-item_name(v-else v-model="groupName" @blur="toggleEdit")
         .card_group_remove(@click="removeTodoGroup(id)")
             .card_group_remove__icon
 </template>
@@ -21,8 +22,22 @@ export default {
             required: true
         }
     },
+    data() {
+        return {
+            groupName: this.name,
+            editMode: false
+        }
+    },
     methods: {
-        ...mapActions(['addTodoCard', 'removeTodoGroup'])
+        toggleEdit(changeEditMode = true) {
+            if (changeEditMode) this.editMode = !this.editMode
+            const group = {
+                id: this.id,
+                name: this.groupName
+            }
+            this.updateGroup(group)
+        },
+        ...mapActions(['addTodoCard', 'removeTodoGroup', 'updateGroup'])
     }
 }
 </script>
