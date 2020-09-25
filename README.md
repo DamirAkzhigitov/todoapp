@@ -3,7 +3,7 @@
   
 ## Figma 
 
-## Link - [todo-app-c07b0.web.app](todo-app-c07b0.web.app)
+## Link - [todo-app-c07b0.web.app](https://todo-app-c07b0.web.app/)
 
 [Link](https://www.figma.com/file/uNr6pwcMVEDzbA0n3FnAc9/Untitled?node-id=0:1)
 ### Desktop version 
